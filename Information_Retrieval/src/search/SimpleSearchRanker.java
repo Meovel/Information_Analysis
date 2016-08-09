@@ -123,9 +123,10 @@ public class SimpleSearchRanker {
 
 			while ((topic = reader.readLine()) != null) {
 				output.reset();
-				String topicNo = topic.substring(0, 2);
-				String topicLitera = topic.substring(3);
-				r.doSearch(topicLitera, 15, outputStream);
+				String topicSplited[] =topic.split(" ", 2);
+				String topicNo = topicSplited[0];
+				String topicLitera = topicSplited[1];
+				r.doSearch(topicLitera, 5, outputStream);
 				result = output.toString();
 				System.out.println(result);
 				String hits[] = result.split("\\r?\\n");
