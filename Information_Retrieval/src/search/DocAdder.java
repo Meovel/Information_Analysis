@@ -29,7 +29,7 @@ public class DocAdder {
 			StringBuilder content = new StringBuilder();
 			String line = null;
 			String first_line = null;
-			while ((line = br.readLine()) != null) {
+			while ((line = br.readLine()) != null && !line.trim().isEmpty()) {
 				if (first_line == null)
 					first_line = line;
 				content.append(line + "\n");

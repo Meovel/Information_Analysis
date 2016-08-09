@@ -125,7 +125,20 @@ public class SimpleSearchRanker {
 				output.reset();
 				String topicNo = topicSplited[0];
 				String topicLitera = topicSplited[1];
-				r.doSearch(ZenOptimizer.Optimize(topicLitera), 5, outputStream);
+
+				// enable below to use AND instead of implicit OR between terms
+
+//				topicSplited = optimizedTopic.split(" ");
+//				optimizedTopic = topicSplited[0];
+//				for (int i=1; i<topicSplited.length; i++) {
+//					optimizedTopic += " AND " + topicSplited[i];
+//				}
+
+				// default non-weighted rank
+				r.doSearch(optimizedTopic, 5, outputStream);
+				// weighted rank
+				// r.doSearch("(FIRST_LINE:"+optimizedTopic+")^2 AND (CONTENT:" + optimizedTopic+")", 5, outputStream);
+
 				result = output.toString();
 				System.out.println(result);
 				String hits[] = result.split("\\r?\\n");

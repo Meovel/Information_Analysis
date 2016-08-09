@@ -33,8 +33,11 @@ public class ZenOptimizer {
             }
             tStream.close();
         }
-        System.out.println(result.toString());
-        return result.toString();
+        result = resubltBuffer.toString();
+        if (result.length() > 0)
+            result = result.substring(0, result.length()-1);
+
+        return result;
     }
 
     public static void main(String[] args) {}
