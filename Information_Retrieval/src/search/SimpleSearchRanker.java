@@ -1,5 +1,5 @@
 /** Exhibits standard Lucene searches for ranking documents.
- * 
+ *
  * @author Scott Sanner, Paul Thomas
  * Modified by Hao Zhang
  */
@@ -29,19 +29,19 @@ public class SimpleSearchRanker {
 	IndexReader   _reader;
 	IndexSearcher _searcher;
 	DecimalFormat _df = new DecimalFormat("#.####");
-	
-	public SimpleSearchRanker(String index_path, String default_field, Analyzer a) 
-		throws IOException {
+
+	public SimpleSearchRanker(String index_path, String default_field, Analyzer a)
+			throws IOException {
 		_indexPath = index_path;
 		Directory d = new SimpleFSDirectory(Paths.get(_indexPath));
 		DirectoryReader dr = DirectoryReader.open(d);
 		_searcher  = new IndexSearcher(dr);
 		_parser    = new StandardQueryParser(a);
 	}
-	
-	public void doSearch(String query, int num_hits, PrintStream ps) 
-		throws Exception {
-		
+
+	public void doSearch(String query, int num_hits, PrintStream ps)
+			throws Exception {
+
 		Query q = _parser.parse(query, "CONTENT");
 		TopScoreDocCollector collector = TopScoreDocCollector.create(num_hits);
 		_searcher.search(q, collector);
@@ -49,30 +49,30 @@ public class SimpleSearchRanker {
 
 		ps.println("Found " + hits.length + " hits " + " for query " + query + ":");
 		for (int i = 0; i < hits.length; i++) {
-		    int docId = hits[i].doc;
-		    Document d = _searcher.doc(docId);
-		    ps.println((i + 1) + ". (" + _df.format(hits[i].score) 
-		    		   + ") " + d.get("PATH"));
+			int docId = hits[i].doc;
+			Document d = _searcher.doc(docId);
+			ps.println((i + 1) + ". (" + _df.format(hits[i].score)
+					+ ") " + d.get("PATH"));
 		}
 	}
-	
+
 	public static void main(String[] args) throws Exception {
-		
-		String index_path = "src/documents/lucene.index";
+
+		String index_path = "src/documents_gov/lucene.index";
 		String default_field = "CONTENT";
-		String topic_path = "src/topics/air.topics";
-		String result_path = "out/retrieved.txt";
-		
+		String topic_path = "src/topics/gov.topics";
+		String result_path = "out/retrieved_gov.txt";
+
 		FileIndexBuilder b = new FileIndexBuilder(index_path);
 		SimpleSearchRanker r = new SimpleSearchRanker(b._indexPath, default_field, b._analyzer);
-		
+
 		// See the following for query parser syntax
 		//   https://lucene.apache.org/core/5_2_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#package_description
 		//
 		// IN SHORT: the default scoring function for OR terms is a variant of TF-IDF
 		//           where one can individually boost the importance of query terms with
 		//           a multipler using ^
-		
+
 //		// Standard single term
 //		r.doSearch("Obama", 5, System.out);
 //
@@ -123,10 +123,9 @@ public class SimpleSearchRanker {
 
 			while ((topic = reader.readLine()) != null) {
 				output.reset();
-				String topicSplited[] =topic.split(" ", 2);
 				String topicNo = topicSplited[0];
 				String topicLitera = topicSplited[1];
-				r.doSearch(topicLitera, 5, outputStream);
+				r.doSearch(ZenOptimizer.Optimize(topicLitera), 5, outputStream);
 				result = output.toString();
 				System.out.println(result);
 				String hits[] = result.split("\\r?\\n");
