@@ -77,6 +77,7 @@ public class Cluster {
 		// TODO: sort hashmap by value
 		List mapValues = new ArrayList(docs.values());
 		Collections.sort(mapValues);
+		Collections.reverse(mapValues);
 		
 		int n = mapValues.size();
 		if (m > n) m = n;
@@ -85,7 +86,7 @@ public class Cluster {
 			for (Document d : docs.keySet()) {
 				if (mapValues.get(i) == docs.get(d)) {
 					System.out.print("<" + d.name + ">  ");
-//					System.out.println("(" + mapValues.get(i) + ") ");
+					System.out.println("(" + mapValues.get(i) + ") ");
 					break;
 				}
 			}

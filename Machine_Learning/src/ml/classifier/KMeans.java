@@ -94,7 +94,7 @@ public class KMeans {
 
                 newDistance = cosDistance(doc, clusters.get(cluster).centroid);
                 // TODO: Tier breaking
-                if (newDistance != 0 && newDistance < currentDistance) {
+                if (newDistance != 0 && newDistance > currentDistance) {
                     currentDistance = newDistance;
                     currentClusterNo = cluster;
                 }
