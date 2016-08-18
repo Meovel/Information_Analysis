@@ -19,6 +19,14 @@ public class Cluster {
 		centroid = c;
 	}
 
+	/** Size of the cluster
+	 *
+	 * @return number of docs in the cluster
+     */
+	public int size() {
+		return docs.size();
+	}
+
 	/** Add a document and its distance from the centroid to the cluster
 	 *
 	 * @param doc document to be added to the cluster
@@ -54,10 +62,11 @@ public class Cluster {
 			}
 		}
 
-		double k = docs.size();
+		int size = docs.size();
 		for (String s : newCentroid.keySet()) {
-			newCentroid.put(s, newCentroid.get(s) / k);
+			newCentroid.put(s, newCentroid.get(s) / size);
 		}
+		centroid = newCentroid;
 	}
 
 	/** Output top document names in the cluster
@@ -75,11 +84,12 @@ public class Cluster {
 		for (int i = 0; i < m; i++){
 			for (Document d : docs.keySet()) {
 				if (mapValues.get(i) == docs.get(d)) {
-					System.out.print("<" + d.name + "> ");
+					System.out.print("<" + d.name + ">  ");
+//					System.out.println("(" + mapValues.get(i) + ") ");
+					break;
 				}
 			}
 		}
-		System.out.println();
 	}
 
 }
