@@ -11,6 +11,7 @@ public class Document {
 	
 	public String name;
 	public int cluster = 0;
+	public double mod;
 	public HashMap<String, Double> tf = new HashMap<>();
 
 	public Document(String name) {
@@ -32,6 +33,15 @@ public class Document {
      */
 	public void addTF(String t, Double f) {
 		tf.put(t, f);
+	}
+
+	public void calMod() {
+		double mod = 0;
+
+		for (String feature: tf.keySet()) {
+			mod += Math.pow(tf.get(feature), 2);
+		}
+		this.mod = mod;
 	}
 
 }

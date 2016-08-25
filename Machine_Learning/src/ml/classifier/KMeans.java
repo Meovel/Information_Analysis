@@ -16,11 +16,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class KMeans {
 
-    public final static String  DATA_SRC         = "data/blog_data/";
+    public final static String  DATA_SRC         = "data/blog_data_test/";
     public final static boolean REMOVE_STOPWORDS = true;
-    public final static int     NUM_TOP_WORDS    = 1500;
-    public final static int     NUM_MAX_TF       = 0;
-    public final static int     NUM_MAX_REASS    = 5;
+    public final static int     NUM_TOP_WORDS    = 250;
+    public final static int     NUM_MAX_TF       = 10;
+    public final static int     NUM_MAX_REASS    = 30;
     public final static int     NUM_CLUSTERS_K   = 3;
     public final static int     NUM_OUTPUT_DOC   = 5;
 
@@ -61,7 +61,7 @@ public class KMeans {
 
         while (i<NUM_MAX_REASS) {
             if (!reAssignment()) {
-                System.out.print("Converges");
+                System.out.print("Converges ");
                 break;
             }
 
@@ -139,11 +139,11 @@ public class KMeans {
         for (String t : centroidTF.keySet()) {
             centroidMod += Math.pow(centroidTF.get(t), 2);
         }
-        for (String t : docTF.keySet()) {
-            docMod += Math.pow(docTF.get(t), 2);
-        }
+//        for (String t : docTF.keySet()) {
+//            docMod += Math.pow(docTF.get(t), 2);
+//        }
 
-        return dotProd/(centroidMod*docMod);
+        return dotProd/(centroidMod*doc.mod);
     }
 
     /** Get feature vectors and store using sparse data structure
@@ -172,6 +172,7 @@ public class KMeans {
             }
 
             docs.set(index, d);
+            d.calMod();
             index++;
         }
 
