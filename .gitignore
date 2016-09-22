@@ -3,3 +3,5 @@
 **/.project
 **/*.iml
 **/*.class
+**/*.pyc
+/Natural_Language_Processing/venv/*
