@@ -1,0 +1,30 @@
+templates are categorized by first digit of the id,
+
+—— word based ——
+
+U0x:
+EXP - predicate the tag based on a sing word
+RNG - preceding two words, current word, next word
+
+U1x:
+EXP - predicate the tag based on two-word combination
+RNG - previous and current, current and next
+
+U2x:
+EXP - predicate the tag based on three-word combination
+RNG - (previous, current, next)
+
+—— word based ——
+
+U3x:
+EXP - predicate the tag based on POS associated with a word
+RNG - previous, current and next
+
+U4x:
+EXP - predicate the tag based on POS associated with two-word combination
+RNG - previous, current and next
+
+U5x:
+EXP - predicate the tag based on POS associated with three-word combination
+RNG - (previous, current, next)
+
